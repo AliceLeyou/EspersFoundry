@@ -1,15 +1,17 @@
 {
-	"name": "lazrius-foundry-template",
-	"title": "Lazrius' FoundryVTT Template",
+	"name": "EspersFoundry",
+	"title": "Espers Foundry",
 	"description": ".",
-	"version": "1.0.0",
-	"author": "Laz#9427",
+	"version": "0.0.1",
+	"author": "Esper",
 	"scripts": ["bundle.js"],
-	"styles": ["lazrius-foundry-template.css"],
+	"styles": ["espers-foundry.css"],
 	"languages": [],
-	"minimumCoreVersion": "0.8.8",
-	"compatibleCoreVersion": "0.8.8",
-	"url": "https://github.com/Lazrius/FoundryVTT-Typescript-Module-Template",
-	"manifest": "https://raw.githubusercontent.com/Lazrius/FoundryVTT-Typescript-Module-Template/master/Source/module.json",
-	"download": "https://raw.githubusercontent.com/Lazrius/FoundryVTT-Typescript-Module-Template/master/Package/lazrius-foundry-template-v1.0.0.zip"
+	"compatibility": {
+		"minimum": "10",
+		"verified": "10"
+	},
+	"url": "https://github.com/AliceLeyou/EspersFoundry",
+	"manifest": "https://raw.githubusercontent.com/AliceLeyou/EspersFoundry/master/Source/module.json",
+	"download": "https://raw.githubusercontent.com/AliceLeyou/EspersFoundry/v0.0.1/dist/EspersFoundry-v0.0.1.zip"
 }
