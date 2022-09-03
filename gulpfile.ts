@@ -460,7 +460,7 @@ const gitTaskManifest = (cb: gulp.TaskFunctionCallback) => {
 
 	return gulp.src([`package.json`, `Source/module.json`])
 		.pipe(git.add({ args: "--no-all -f" }))
-		.pipe(git.commit(`v${manifest.file.version}`, { args: "-a", disableAppendPaths: true }))
+		.pipe(git.commit(`Create version v${manifest.file.version}`, { args: "-a", disableAppendPaths: true }))
 }
 
 const gitTaskBuild = (cb: gulp.TaskFunctionCallback) => {
@@ -471,7 +471,7 @@ const gitTaskBuild = (cb: gulp.TaskFunctionCallback) => {
 	return gulp.src(`dist/${manifest.file.name}-v${manifest.file.version}.zip`)
 		.pipe(git.checkout(`v${manifest.file.version}`, { args: '-b' }))
 		.pipe(git.add({ args: "--no-all -f" }))
-		.pipe(git.commit(`v${manifest.file.version}`, { args: "-a", disableAppendPaths: true }))
+		.pipe(git.commit(`Add the release zip for v${manifest.file.version}`, { args: "-a", disableAppendPaths: true }))
 }
 
 const execBuild = gulp.parallel(buildTS, buildLess, copyFiles);
