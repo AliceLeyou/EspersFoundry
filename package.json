@@ -1,6 +1,6 @@
 {
-	"name": "lazrius-foundry-template",
-	"version": "1.0.0",
+	"name": "espers-foundry",
+	"version": "0.0.1",
 	"description": "",
 	"main": "index.js",
 	"scripts": {
@@ -10,7 +10,7 @@
 		"build:watch": "gulp watch",
 		"clean": "gulp clean && gulp link --clean"
 	},
-	"author": "Lazrius",
+	"author": "Esper",
 	"license": "GPLv3",
 	"devDependencies": {
 		"@babel/core": "^7.15.0",
