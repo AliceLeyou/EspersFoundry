@@ -2,7 +2,7 @@
 	"name": "EspersFoundry",
 	"title": "Espers Foundry",
 	"description": ".",
-	"version": "0.0.3",
+	"version": "0.0.4",
 	"author": "Esper",
 	"scripts": ["bundle.js"],
 	"styles": ["espers-foundry.css"],
@@ -13,5 +13,5 @@
 	},
 	"url": "https://github.com/AliceLeyou/EspersFoundry",
 	"manifest": "https://raw.githubusercontent.com/AliceLeyou/EspersFoundry/master/Source/module.json",
-	"download": "https://raw.githubusercontent.com/AliceLeyou/EspersFoundry/v0.0.3/dist/EspersFoundry-v0.0.3.zip"
+	"download": "https://raw.githubusercontent.com/AliceLeyou/EspersFoundry/v0.0.4/dist/EspersFoundry-v0.0.4.zip"
 }
