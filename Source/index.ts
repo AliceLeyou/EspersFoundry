@@ -11,9 +11,9 @@ Hooks.once("init", async () => {
 Hooks.once("init", CleanUpUI);
 
 Hooks.once("setup", () => {
-	Logger.Log("Template module is being setup.")
+	Logger.Log("Espers Foundry is being setup.")
 });
 
 Hooks.once("ready", () => {
-	Logger.Ok("Template module is now ready.");
+	Logger.Ok("Espers Foundry is now ready.");
 });
