@@ -2,16 +2,17 @@
   "root": true,
   "parser": "@typescript-eslint/parser",
   "plugins": [
-	"@typescript-eslint"
+	  "@typescript-eslint"
   ],
   "extends": [
-	"eslint:recommended",
-	"plugin:@typescript-eslint/eslint-recommended",
-	"plugin:@typescript-eslint/recommended"
+	  "eslint:recommended",
+	  "plugin:@typescript-eslint/eslint-recommended",
+	  "plugin:@typescript-eslint/recommended"
   ],
   "rules": {
-	"@typescript-eslint/no-useless-constructor": "off",
-	"@typescript-eslint/no-empty-function": "off",
-	"@typescript-eslint/no-explicit-any": "off"
+	  "@typescript-eslint/no-useless-constructor": "off",
+	  "@typescript-eslint/no-empty-function": "off",
+	  "@typescript-eslint/no-explicit-any": "off",
+    "@typescript-eslint/ban-ts-comment": "off"
   }
 }

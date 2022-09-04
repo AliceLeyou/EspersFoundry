@@ -1,17 +1,28 @@
 {
-	"name": "EspersFoundry",
+	"id": "EspersFoundry",
 	"title": "Espers Foundry",
-	"description": ".",
-	"version": "0.0.7",
-	"author": "Esper",
+	"description": "Espers Foundry customizes Foundry in a way Esper likes",
+	"version": "0.1.0",
+	"authors": [{"name": "Esper"}],
 	"scripts": ["bundle.js"],
 	"styles": ["espers-foundry.css"],
-	"languages": [],
+	"languages": [
+		{
+			"lang": "en",
+			"name": "English",
+			"path": "Lang/en.json"
+		},
+		{
+			"lang": "de",
+			"name": "Deutsch",
+			"path": "Lang/de.json"
+		}
+	],
 	"compatibility": {
 		"minimum": "10",
 		"verified": "10"
 	},
 	"url": "https://github.com/AliceLeyou/EspersFoundry",
 	"manifest": "https://raw.githubusercontent.com/AliceLeyou/EspersFoundry/master/Source/module.json",
-	"download": "https://raw.githubusercontent.com/AliceLeyou/EspersFoundry/v0.0.7/dist/EspersFoundry-v0.0.7.zip"
+	"download": "https://raw.githubusercontent.com/AliceLeyou/EspersFoundry/v0.1.0/dist/EspersFoundry-v0.1.0.zip"
 }
