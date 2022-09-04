@@ -2,7 +2,7 @@
 	"id": "EspersFoundry",
 	"title": "Espers Foundry",
 	"description": "Espers Foundry customizes Foundry in a way Esper likes",
-	"version": "0.1.0",
+	"version": "0.2.0",
 	"authors": [{"name": "Esper"}],
 	"scripts": ["bundle.js"],
 	"styles": ["espers-foundry.css"],
@@ -24,5 +24,5 @@
 	},
 	"url": "https://github.com/AliceLeyou/EspersFoundry",
 	"manifest": "https://raw.githubusercontent.com/AliceLeyou/EspersFoundry/master/Source/module.json",
-	"download": "https://raw.githubusercontent.com/AliceLeyou/EspersFoundry/v0.1.0/dist/EspersFoundry-v0.1.0.zip"
+	"download": "https://raw.githubusercontent.com/AliceLeyou/EspersFoundry/v0.2.0/dist/EspersFoundry-v0.2.0.zip"
 }

@@ -1,5 +1,12 @@
 import ConfigUtility from "../../Utils/ConfigUtility";
 import Logger from "../../Utils/Logger";
+import ApplyStatusEffectsForm from "./ApplyStatusEffectsForm";
+
+type ContextMenuElement = {
+    name: string;
+    icon: string;
+    callback: (e: any) => void;
+}
 
 function GetCombatantList(combatTracker: CombatTracker): Combatant[] {
     const combatants: Combatant[] = [];
@@ -30,6 +37,19 @@ function ReplaceTokenEffectsForCombatant(token: TokenDocument, effectNodes: HTML
     }
 }
 
+function ExtendContextMenu(html: JQuery, contextMenu: ContextMenuElement[]) {
+    contextMenu.splice(1, 0, {
+        name: "AdvancedTokenEffects.ContextMenu.StatusEffect", 
+        icon: "<i class='fa-solid fa-hurricane'></i>", 
+        callback: (e: any) => {
+            const combatantId = e.data("combatant-id");
+            // @ts-ignore incomplete foundry types
+            const token: TokenDocument = game.combat.combatants.get(combatantId).token;
+            new ApplyStatusEffectsForm(token).render(true);
+        }
+    });
+}
+
 function ReplaceTokenEffects(combatTracker: CombatTracker, html: JQuery): void {
     Logger.Ok("Replace token effects with advanced token effects");
     const combatants = GetCombatantList(combatTracker);
@@ -38,7 +58,7 @@ function ReplaceTokenEffects(combatTracker: CombatTracker, html: JQuery): void {
     for(let i = 0; i < combatantNodes.length; ++i) {
         const combatantId = combatantNodes[i].getAttribute("data-combatant-id");
         const token = combatants.find((combatant) => combatant.id === combatantId)?.token;
-        const effectNodes = combatantNodes[i].getElementsByClassName(("token-effect"));
+        const effectNodes = combatantNodes[i].getElementsByClassName("token-effect");
 
         if(token) {
             ReplaceTokenEffectsForCombatant(token, effectNodes);
@@ -48,6 +68,7 @@ function ReplaceTokenEffects(combatTracker: CombatTracker, html: JQuery): void {
 
 function AdvancedTokenEffects(): void {
     Hooks.on("renderCombatTracker", ReplaceTokenEffects);
+    Hooks.on("getCombatTrackerEntryContext", ExtendContextMenu);
 }
 
 export default AdvancedTokenEffects;
