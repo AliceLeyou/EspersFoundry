@@ -150,6 +150,7 @@ function buildTS() {
 
 const bundleModule = () => {
 	fs.copy("Source/Lang", "dist/Lang");
+	fs.copy("Source/Templates", "dist/Templates");
 
 	const debug = argv.dbg || argv.debug;
 	const bsfy = browserify(path.join(__dirname, "Source/index.ts"), { debug: debug });

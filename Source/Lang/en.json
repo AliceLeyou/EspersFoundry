@@ -1,2 +1,7 @@
 {
+    "AdvancedTokenEffects": {
+        "ContextMenu": {
+            "StatusEffect": "Apply status effect"
+        }
+    }
 }
