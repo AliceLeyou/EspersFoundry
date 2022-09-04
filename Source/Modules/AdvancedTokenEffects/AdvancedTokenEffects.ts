@@ -1,27 +1,53 @@
+import ConfigUtility from "../../Utils/ConfigUtility";
 import Logger from "../../Utils/Logger";
-import TokenEffects from "./TokenEffects";
 
-function MakeAdvancedTokenEffect(Effect: TokenEffects, Image: Element): HTMLAnchorElement {
-    const newEffect = document.createElement("a");
-    newEffect.className = "combatant-control";
-    newEffect.setAttribute("data-tooltip", Effect.toString());
-    newEffect.appendChild(Image);
-    return newEffect;
+function GetCombatantList(combatTracker: CombatTracker): Combatant[] {
+    const combatants: Combatant[] = [];
+    combatTracker.combats.forEach((combat) => {
+        combat.combatants.forEach((combatant) => {
+            combatants.push(combatant);
+        });
+    });
+    return combatants;
 }
 
-function ReplaceCurrentTokenEffects(): void {
-    Logger.Ok("Replace all current token effects");
-    const effectNodes = document.getElementsByClassName("token-effect");
+function ReplaceTokenEffectsForCombatant(token: TokenDocument, effectNodes: HTMLCollectionOf<Element>) {
     for(let i = 0; i < effectNodes.length; ++i) {
-        Logger.Ok(`Replace token effect ${effectNodes[i].outerHTML}`);
-        const effect = effectNodes[i];
-        const parent = effect.parentNode;
-        parent?.removeChild(effect);
-
-        const newEffect = MakeAdvancedTokenEffect(TokenEffects.PARALYSIS, effect);
-        parent?.appendChild(newEffect);
-        Logger.Ok(`New token effect ${newEffect.outerHTML}`);
+        const effectIcon = effectNodes[i].getAttribute("src");
+        if(!effectIcon) continue;
+        const statusEffect = ConfigUtility.GetStatusEffectByIcon(effectIcon);
+        // @ts-ignore incomplete foundry types
+        const effectName = game.i18n.localize(statusEffect.label);
+        effectNodes[i].setAttribute("data-tooltip", effectName);
+        effectNodes[i].addEventListener("click", (e: Event) => {
+            e.preventDefault();
+            e.stopPropagation();
+            Logger.Ok(`Toggle ${effectName} status effect for ${token.name}`);
+            // @ts-ignore incomplete foundry types
+            token.toggleActiveEffect(statusEffect);
+            $("#tooltip").removeClass("active");
+        });
     }
 }
 
-export default ReplaceCurrentTokenEffects;
+function ReplaceTokenEffects(combatTracker: CombatTracker, html: JQuery): void {
+    Logger.Ok("Replace token effects with advanced token effects");
+    const combatants = GetCombatantList(combatTracker);
+
+    const combatantNodes = html.find($(".combatant.actor"));
+    for(let i = 0; i < combatantNodes.length; ++i) {
+        const combatantId = combatantNodes[i].getAttribute("data-combatant-id");
+        const token = combatants.find((combatant) => combatant.id === combatantId)?.token;
+        const effectNodes = combatantNodes[i].getElementsByClassName(("token-effect"));
+
+        if(token) {
+            ReplaceTokenEffectsForCombatant(token, effectNodes);
+        }
+    }
+}
+
+function AdvancedTokenEffects(): void {
+    Hooks.on("renderCombatTracker", ReplaceTokenEffects);
+}
+
+export default AdvancedTokenEffects;

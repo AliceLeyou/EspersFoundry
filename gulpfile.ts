@@ -38,7 +38,7 @@ import {
 import less from "gulp-less";
 
 import Logger from "./Source/Utils/Logger";
-import {ModuleData} from "@league-of-foundry-developers/foundry-vtt-types/src/foundry/common/packages.mjs";
+import { ModuleData } from "@league-of-foundry-developers/foundry-vtt-types/src/foundry/common/packages.mjs";
 import browserify from "browserify";
 import tsify = require("tsify");
 
@@ -149,6 +149,8 @@ function buildTS() {
 }
 
 const bundleModule = () => {
+	fs.copy("Source/Lang", "dist/Lang");
+
 	const debug = argv.dbg || argv.debug;
 	const bsfy = browserify(path.join(__dirname, "Source/index.ts"), { debug: debug });
 	return bsfy.on('error', Logger.Err)
@@ -248,7 +250,7 @@ const cleanDist = async () => {
 const buildWatch = () => {
 	gulp.watch("Source/**/*.ts", { ignoreInitial: false }, gulp.series(buildTS, bundleModule));
 	gulp.watch("Source/**/*.less", { ignoreInitial: false }, buildLess);
-	gulp.watch(["Source/fonts", "Source/lang", "Source/templates", "Source/*.json"], { ignoreInitial: false }, copyFiles);
+	gulp.watch(["Source/fonts", "Source/Lang", "Source/templates", "Source/*.json"], { ignoreInitial: false }, copyFiles);
 }
 
 /********************/
@@ -275,7 +277,8 @@ const clean = async () => {
 }
 
 const linkUserData = async () => {
-	const name = getManifest()!.file.name;
+	// @ts-ignore foundry-vtt-types is not updated for version 10
+	const name = getManifest()!.file.id;
 
 	let destDir;
 	try {
@@ -292,7 +295,8 @@ const linkUserData = async () => {
 		if (dataPath) {
 			if (!fs.existsSync(path.join(dataPath, "Data")))
 				throw Error("User Data path invalid, no Data directory found");
-
+			
+			console.log(name);
 			linkDir = path.join(dataPath, "Data", destDir, name as string);
 		} else {
 			throw Error("FOUNDRY_PATH not defined in environment");
@@ -340,7 +344,8 @@ async function packageBuild() {
 				fs.mkdirSync("dist");
 
 			// Initialize the zip file
-			const zipName = `${manifest.file.name}-v${manifest.file.version}.zip`;
+			// @ts-ignore foundry-vtt-types is not updated for version 10
+			const zipName = `${manifest.file.id}-v${manifest.file.version}.zip`;
 			const zipFile = fs.createWriteStream(path.join("dist", zipName));
 			const zip = archiver("zip", { zlib: { level: 9 } });
 
@@ -433,7 +438,8 @@ const updateManifest = (cb: any) => {
 
 		/* Update URLs */
 
-		const result = `${rawURL}/v${manifest.file.version}/dist/${manifest.file.name}-v${manifest.file.version}.zip`;
+		// @ts-ignore foundry-vtt-types is not updated for version 10
+		const result = `${rawURL}/v${manifest.file.version}/dist/${manifest.file.id}-v${manifest.file.version}.zip`;
 
 		manifest.file.url = repoURL;
 		manifest.file.manifest = `${rawURL}/master/${manifestRoot}/${manifest.name}`;
@@ -468,7 +474,8 @@ const gitTaskBuild = (cb: gulp.TaskFunctionCallback) => {
 	if (!manifest)
 		return cb(Error("could not load manifest."));
 
-	return gulp.src(`dist/${manifest.file.name}-v${manifest.file.version}.zip`)
+	// @ts-ignore foundry-vtt-types is not updated for version 10
+	return gulp.src(`dist/${manifest.file.id}-v${manifest.file.version}.zip`)
 		.pipe(git.checkout(`v${manifest.file.version}`, { args: '-b' }))
 		.pipe(git.add({ args: "--no-all -f" }))
 		.pipe(git.commit(`Add the release zip for v${manifest.file.version}`, { args: "-a", disableAppendPaths: true }))
