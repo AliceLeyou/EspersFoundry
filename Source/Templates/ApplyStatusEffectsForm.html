@@ -1,0 +1,22 @@
+<form class="flexcol">
+  <div style="padding-bottom: 5px">
+    {{#each effects}}
+      <div>
+        <input style="vertical-align: middle; display: inline-block" type="checkbox" id="{{this.id}}" name="{{this.id}}" {{#if this.active}}checked{{/if}}>
+        <label style="vertical-align: middle; display: inline-block">{{this.localizedLabel}}</label>
+      </div>
+    {{/each}}
+  </div>
+  
+  <footer class="sheet-footer flexrow">
+    <button type="reset" name="reset">
+      <i class="fa fa-xmark"></i><span>Resrt</span>
+    </button>
+    <button type="submit" name="clear">
+      <i class="fa fa-eraser"></i><span>Clear</span>
+    </button>
+    <button type="submit" name="submit">
+      <i class="fa fa-check"></i><span>OK</span>
+    </button>
+  </footer>
+</form>
